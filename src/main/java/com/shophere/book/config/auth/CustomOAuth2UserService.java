@@ -2,7 +2,7 @@ package com.shophere.book.config.auth;
 
 import com.shophere.book.config.auth.dto.OAuthAttributes;
 import com.shophere.book.config.auth.dto.SessionUser;
-import com.shophere.book.domain.user.User;
+import com.shophere.book.domain.user.Users;
 import com.shophere.book.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,7 +34,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        User user = saveOrUpdate(attributes);
+        Users user = saveOrUpdate(attributes);
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(
@@ -43,8 +43,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         );
     }
 
-    private User saveOrUpdate(OAuthAttributes attributes) {
-        User user = userRepository.findByEmail(attributes.getEmail())
+    private Users saveOrUpdate(OAuthAttributes attributes) {
+        Users user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
 

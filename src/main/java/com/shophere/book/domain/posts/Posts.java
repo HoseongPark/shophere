@@ -19,12 +19,13 @@ public class Posts extends BaseTimeEntity {
     @Column(length = 500, nullable = false)
     private String title;
 
-    @Column(length = 250, nullable = false)
+    @Column(length = 250, nullable = true)
     private String overView;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = true)
     private String content;
 
+    @Column
     private String author;
 
     @Builder
@@ -35,8 +36,9 @@ public class Posts extends BaseTimeEntity {
         this.author = author;
     }
 
-    public void update(String title, String content) {
+    public void update(String title, String content, String overView) {
         this.title = title;
+        this.overView = overView;
         this.content = content;
     }
 }

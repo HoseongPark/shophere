@@ -26,6 +26,11 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/signin")
+    public String signin() {
+        return "signin";
+    }
+
     @GetMapping("/posts/save")
     public String postsSave() {
         return "posts-save";
