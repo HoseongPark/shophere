@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-6">
-                <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+                <a href="/shops/save" role="button" class="btn btn-primary">글 등록</a>
                 {{#userName}}
                     Logged in as: <span id="user">{{userName}}</span>
                     <a href="/logout" class="btn btn-info active" role="button">LogOut</a>
@@ -30,14 +30,14 @@
         </tr>
         </thead>
         <tobdy id="tbody">
-            {{#posts}}
+            {{#shops}}
             <tr>
                 <td>{{id}}</td>
-                <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+                <td><a href="/shops/update/{{id}}">{{title}}</a></td>
                 <td>{{author}}</td>
                 <td>{{modifiedDate}}</td>
             </tr>
-            {{/posts}}
+            {{/shops}}
         </tobdy>
     </table>
 
