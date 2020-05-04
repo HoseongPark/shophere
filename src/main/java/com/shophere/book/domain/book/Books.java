@@ -32,7 +32,6 @@ public class Books extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Singular
     @OneToMany(mappedBy = "books")
     private List<BookShop> bookShops = new ArrayList<>();
 

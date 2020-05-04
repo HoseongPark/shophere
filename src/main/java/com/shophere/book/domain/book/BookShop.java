@@ -32,8 +32,7 @@ public class BookShop extends BaseTimeEntity {
     }
 
     public static BookShop bookShopCreate(Shops shops) {
-        BookShop bookShop = BookShop
-                .builder()
+        BookShop bookShop = BookShop.builder()
                 .shops(shops)
                 .build();
 
