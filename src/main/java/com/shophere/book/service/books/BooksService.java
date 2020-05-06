@@ -3,7 +3,6 @@ package com.shophere.book.service.books;
 import com.shophere.book.domain.book.BookShop;
 import com.shophere.book.domain.book.Books;
 import com.shophere.book.domain.book.BooksRepository;
-import com.shophere.book.domain.book.Status;
 import com.shophere.book.domain.shops.Shops;
 import com.shophere.book.domain.shops.ShopsRepository;
 import com.shophere.book.domain.user.UserRepository;
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -25,7 +25,9 @@ public class BooksService {
     private final ShopsRepository shopsRepository;
     private final UserRepository userRepository;
 
-    // 예약 하기 ( 등록하기 )
+    /**
+    *  예약하기 (등록하기)
+    * */
     @Transactional
     public Long booksSave(Long usersId, Long shopsId) {
         Users user = userRepository.findById(usersId).orElseThrow(() -> new IllegalArgumentException("유저가 없어요~"));
@@ -41,6 +43,25 @@ public class BooksService {
 
         return saveBooks.getId();
     }
-    // 예약 변경하기 (수정하기)
-    // 예약 취소하기 (삭제하기)
+
+    /**
+    *  예약 취소하기 (삭제하기)
+    * */
+    public Long booksDelete(Long bookId) {
+
+        Books findBook = booksRepository.findById(bookId).orElseThrow(() -> new IllegalArgumentException("예약이 없어요..."));
+
+        findBook.cancelBook();
+
+        return findBook.getId();
+    }
+
+    /**
+     * 예약 조회하기 (조회하기)
+     */
+
+    public List<Books> booksRead(Long userId) {
+        List<Books> findBook = booksRepository.findAllUserId(userId);
+        return findBook;
+    }
 }

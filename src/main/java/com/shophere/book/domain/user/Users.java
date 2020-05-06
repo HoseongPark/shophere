@@ -2,10 +2,7 @@ package com.shophere.book.domain.user;
 
 import com.shophere.book.domain.BaseTimeEntity;
 import com.shophere.book.domain.book.Books;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ public class Users extends BaseTimeEntity {
     private Role role;
 
     @OneToMany(mappedBy = "users")
-    private List<Books> books;
+    private List<Books> books = new ArrayList<>();
 
     @Builder
     public Users(String name, String email, String picture, Role role) {

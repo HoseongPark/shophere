@@ -2,10 +2,7 @@ package com.shophere.book.domain.book;
 
 import com.shophere.book.domain.BaseTimeEntity;
 import com.shophere.book.domain.shops.Shops;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -26,14 +23,19 @@ public class BookShop extends BaseTimeEntity {
     @JoinColumn(name = "shops_id")
     private Shops shops;
 
+    // 연관관계 메소드
+    public void setBooks(Books books) {
+        this.books = books;
+    }
+
     @Builder
-    public BookShop(Books books, Shops shops) {
+    public BookShop(Shops shops) {
         this.shops = shops;
     }
 
-    public static BookShop bookShopCreate(Shops shops) {
+    public static BookShop bookShopCreate(Shops shop) {
         BookShop bookShop = BookShop.builder()
-                .shops(shops)
+                .shops(shop)
                 .build();
 
         return bookShop;

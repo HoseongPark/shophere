@@ -2,10 +2,7 @@ package com.shophere.book.domain.shops;
 
 import com.shophere.book.domain.BaseTimeEntity;
 import com.shophere.book.domain.book.BookShop;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -5,13 +5,14 @@ import com.shophere.book.domain.user.Users;
 import lombok.*;
 
 import javax.persistence.*;
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Books extends BaseTimeEntity {
@@ -32,33 +33,52 @@ public class Books extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(mappedBy = "books")
+    @OneToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
     private List<BookShop> bookShops = new ArrayList<>();
+
+    // -- 연관관계 처리 -- //
+    public void setUsers(Users user) {
+        this.users = user;
+        user.getBooks().add(this);
+    }
 
     public void addBookShop(BookShop bookShop) {
         this.bookShops.add(bookShop);
+        bookShop.setBooks(this);
+    }
+
+    public void changeStatus(Status status) {
+        this.status = status;
     }
 
     @Builder
-    public Books(Users users, LocalDate bookDate, LocalTime bookTime, Status status, BookShop... bookShops) {
-        this.users = users;
+    public Books (Users user, LocalDate bookDate, LocalTime bookTime, Status status) {
+        this.users = user;
         this.bookDate = bookDate;
         this.bookTime = bookTime;
         this.status = status;
-        for (BookShop bookShop : bookShops) {
-            addBookShop(bookShop);
-        }
     }
 
+    // 예약 생성 메소드
     public static Books createBook(Users users, LocalDate bookDate, LocalTime bookTime, BookShop... bookShop) {
-        Books books = Books.builder()
-                .users(users)
+        Books book = Books.builder()
                 .bookDate(bookDate)
                 .bookTime(bookTime)
-                .bookShops(bookShop)
                 .status(Status.BOOKING)
                 .build();
 
-        return books;
+        book.setUsers(users);
+        for (BookShop shop : bookShop) {
+            book.addBookShop(shop);
+        }
+
+        return book;
+    }
+
+    /**
+     * 예약 취소 메서드
+     */
+    public void cancelBook() {
+        changeStatus(Status.CANCEL);
     }
 }
