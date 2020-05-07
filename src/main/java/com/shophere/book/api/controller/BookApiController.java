@@ -1,9 +1,12 @@
 package com.shophere.book.api.controller;
 
+import com.shophere.book.api.dto.books.BooksResponseDto;
 import com.shophere.book.api.dto.books.BooksSaveRequestDto;
 import com.shophere.book.domain.book.Books;
 import com.shophere.book.service.books.BooksService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,25 +21,31 @@ public class BookApiController {
 
     private final BooksService booksService;
 
-    @ApiOperation(value = "Books 등록")
+    @ApiOperation(value = "예약 등록")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "회원 ID"),
+            @ApiImplicitParam(name = "shopId", value = "가맹점 ID")
+    })
     @PostMapping("/books/")
     public Long booksSave(@RequestParam Long userId, @RequestParam Long shopId) {
         Long saveBookId = booksService.booksSave(userId, shopId);
         return saveBookId;
     }
 
-    @ApiOperation(value = "Books 삭제")
+    @ApiOperation(value = "예약 삭제")
+    @ApiImplicitParam(name="id", value = "예약 ID", required = true)
     @DeleteMapping("/books/{id}")
     public Long booksDelete(@PathVariable("id") Long bookId) {
         Long deleteBookId = booksService.booksDelete(bookId);
         return deleteBookId;
     }
 
-    @ApiOperation(value = "Books 조회")
+    @ApiOperation(value = "예약 조회")
+    @ApiImplicitParam(name = "id", value = "회원 ID", required = true)
     @GetMapping("/books/{id}")
-    public List<Books> booksRead(@PathVariable("id") Long userId) {
-        List<Books> books = booksService.booksRead(userId);
+    public List<BooksResponseDto> booksRead(@PathVariable("id") Long userId) {
+        List<BooksResponseDto> result = booksService.booksReadByUserId(userId);
 
-        return books;
+        return result;
     }
 }

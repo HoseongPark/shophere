@@ -1,5 +1,6 @@
 package com.shophere.book.service.books;
 
+import com.shophere.book.api.dto.books.BooksResponseDto;
 import com.shophere.book.domain.book.BookShop;
 import com.shophere.book.domain.book.Books;
 import com.shophere.book.domain.book.BooksRepository;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -57,11 +59,16 @@ public class BooksService {
     }
 
     /**
-     * 예약 조회하기 (조회하기)
+     * 예약 조회하기 (회원 ID로  예약 조회하기)
      */
+    public List<BooksResponseDto> booksReadByUserId(Long userId) {
+        Users findUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("없는 유저입니다."));
+        List<Books> findBooks = booksRepository.findByUser(findUser);
 
-    public List<Books> booksRead(Long userId) {
-        List<Books> findBook = booksRepository.findAllUserId(userId);
-        return findBook;
+        List<BooksResponseDto> result = findBooks.stream()
+                .map(o -> new BooksResponseDto(o))
+                .collect(Collectors.toList());
+
+        return result;
     }
 }
