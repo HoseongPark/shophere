@@ -42,8 +42,8 @@
   </nav>
     <!-- 로그인 모달창 -->
     <div class="modal fade" id="signinmodal" tabindex="-1" role="dialog" aria-labelledby="signinmodal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-60size" role="document">
+            <div class="modal-content modal-60size">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -62,11 +62,10 @@
                         </div>
                     </form>
                 </div>
-                    <div>
-                        <a href="/oauth2/authorization/google"><img src="/images/google-login.png"></a>
-                        <a href="/oauth2/authorization/naver"><img src="/images/naver-login.png"></a>
-                    </div>
-                    <br>
+                <div class="modal-link">
+                    <a href="/oauth2/authorization/google"><img src="/images/google-login.png"></a>
+                    <a href="/oauth2/authorization/naver"><img src="/images/naver-login.png"></a>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">Login</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -77,8 +76,8 @@
 
     <!-- 로그아웃 모달창 -->
     <div class="modal fade" id="signoutmodal" tabindex="-1" role="dialog" aria-labelledby="signoutmodal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog modal-60size" role="document">
+            <div class="modal-content modal-60size">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Sign Out</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -86,7 +85,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <span>정말 Sign Out 하시겠습니까~???</span>
+                    <span>Sign Out 하시겠습니까?</span>
                 </div>
                 <br>
                 <div class="modal-footer">

@@ -42,7 +42,7 @@ public class Shops extends BaseTimeEntity {
 
     public void update(String title, String content, String overView) {
         this.title = title;
-        this.overView = overView;
         this.content = content;
+        this.overView = overView;
     }
 }

@@ -59,7 +59,7 @@ public class BooksService {
     }
 
     /**
-     * 예약 조회하기 (회원 ID로  예약 조회하기)
+     * 예약 조회하기 (회원 ID 예약 조회하기)
      */
     public List<BooksResponseDto> booksReadByUserId(Long userId) {
         Users findUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("없는 유저입니다."));

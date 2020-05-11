@@ -5877,6 +5877,11 @@ a.close.disabled {
   padding: 1rem;
 }
 
+.modal-link {
+  position: absolute;
+  top: 50%; left: 50%;
+}
+
 .modal-footer {
   display: -ms-flexbox;
   display: flex;

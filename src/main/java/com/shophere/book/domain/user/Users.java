@@ -24,6 +24,9 @@ public class Users extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = true)
+    private String password;
+
     private String picture;
 
     @Enumerated(EnumType.STRING)
@@ -34,9 +37,10 @@ public class Users extends BaseTimeEntity {
     private List<Books> books = new ArrayList<>();
 
     @Builder
-    public Users(String name, String email, String picture, Role role) {
+    public Users(String name, String email, String password, String picture, Role role) {
         this.name = name;
         this.email = email;
+        this.password = password;
         this.picture = picture;
         this.role = role;
     }

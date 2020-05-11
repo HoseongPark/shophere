@@ -6,3 +6,36 @@
 body {
   padding-top: 56px;
 }
+
+.modal {
+        text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+        .modal:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
+        }
+}
+
+.modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+}
+
+.modal-dialog.modal-60size {
+  width: 60%;
+  height: 60%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-60size {
+  height: auto;
+  min-height: 60%;
+  border-radius: 0;
+}
+
