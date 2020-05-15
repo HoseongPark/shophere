@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -24,10 +22,14 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    @Value("spring.jwt.secret")
+//    private String secretKey = "hoseongFirstJwtToken";
+//    private Long tokenValidTime = 30 * 60 * 1000L; // 토큰 유지 시간.
+
+    @Value("${app.auth.secretKey}")
     private String secretKey;
 
-    private long tokenValidMilisecond = 1000L * 60 * 60;
+    @Value("${app.auth.tokenValidTime}")
+    private Long tokenValidTime;
 
     private final UserDetailsService userDetailsService;
 
@@ -36,7 +38,7 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    // Jwt 토큰 생성
+    // JWT 토큰 생성
     public String createToken(String userPk, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userPk);
         claims.put("roles", roles);
@@ -44,37 +46,35 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenValidMilisecond))
+                .setExpiration(new Date(now.getTime() + tokenValidTime))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
-    // Jwt 토큰으로 인증 정보를 조회
+    // JWT 토큰에서 인증 정보를 조회.
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    // Jwt 토큰에서 회원 구별 정보 추출
+    // 토큰에서 회원정보를 추출
     public String getUserPk(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    // Request의 Header에서 token 파싱 : "X-AUTH-TOKEN : jwt토큰"
+    // Request의 Header에서 token 값을 가져온다 "Authorization" : "TOKEN값"
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        return request.getHeader("Authorization");
     }
 
-    // JWT 토큰의 유효성 + 만료일자 확인.
-    public boolean validateToken(String jwtToken) {
+    // 토큰의 유효성 + 만료일자 확인
+    public boolean validateToken(String token) {
         try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(jwtToken);
-
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
             return false;
         }
     }
+
 }

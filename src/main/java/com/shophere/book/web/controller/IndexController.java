@@ -1,6 +1,5 @@
 package com.shophere.book.web.controller;
 
-import com.shophere.book.config.auth.LoginUser;
 import com.shophere.book.config.auth.dto.SessionUser;
 import com.shophere.book.service.shops.ShopsService;
 import com.shophere.book.api.dto.shops.ShopsResponseDto;
@@ -17,7 +16,7 @@ public class IndexController {
     private final ShopsService shopsService;
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user) {
+    public String index(Model model, SessionUser user) {
         model.addAttribute("shops", shopsService.findAllDesc());
         if (user != null) {
             model.addAttribute("userName", user.getName());

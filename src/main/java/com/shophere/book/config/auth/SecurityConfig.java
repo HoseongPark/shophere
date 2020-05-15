@@ -4,6 +4,7 @@ import com.shophere.book.domain.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,28 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomOAuth2UserService customOAuth2UserService;
     private final JwtTokenProvider jwtTokenProvider;
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable()
-//                .headers().frameOptions().disable()
-//                .and()
-//                    .authorizeRequests()
-//                    .antMatchers("/", "/css/**","/js/**", "/vendor/**", "/images/**").permitAll()
-////                    .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-//                    .anyRequest().authenticated()
-//                .and()
-//                    .logout()
-//                        .logoutSuccessUrl("/")
-//                .and()
-//                    .oauth2Login()
-//                        .userInfoEndpoint()
-//                            .userService(customOAuth2UserService);
-//    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -48,16 +28,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeRequests()
-                        .antMatchers("/*/signin", "/*/signup").permitAll()
-                        .antMatchers(HttpMethod.GET, "posts/**").permitAll()
-                        .anyRequest().hasRole("USER")
+                        .antMatchers("/api/v1/shops/**").hasRole("OWNER")
+                        .anyRequest().permitAll()
                 .and()
-                    .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                            UsernamePasswordAuthenticationFilter.class);
+
     }
 
+    @Bean
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/docs", "/swagger-resources/**", "/swagger-ui.html", "webjars/**", "swagger/**");
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Bean

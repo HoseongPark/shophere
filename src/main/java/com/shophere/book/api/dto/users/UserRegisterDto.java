@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collections;
+
 @Getter
 @NoArgsConstructor
 public class UserRegisterDto {
@@ -31,7 +33,7 @@ public class UserRegisterDto {
                 .name(name)
                 .email(email)
                 .password(password)
-                .role(Role.USER)
+                .roles(Collections.singletonList("ROLE_USER"))
                 .build();
         return user;
     }
