@@ -1,6 +1,7 @@
 package com.shophere.book.api.controller;
 
 import com.shophere.book.api.dto.users.UserRegisterDto;
+import com.shophere.book.api.dto.users.UserUpdateDto;
 import com.shophere.book.service.usrs.UsersService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,5 +28,12 @@ public class UsersApiController {
     public String userLogin(@RequestParam("email") String email, @RequestParam("password") String password) {
         String token = usersService.userLogin(email, password);
         return token;
+    }
+
+    @ApiOperation(value = "회원 수정")
+    @PutMapping("/users/{id}")
+    public Long userUpdate(@RequestBody UserUpdateDto updateDto, @RequestParam("id") Long id) {
+        Long updateUserId = usersService.userUpdate(updateDto, id);
+        return updateUserId;
     }
 }

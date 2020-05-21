@@ -1,12 +1,15 @@
 package com.shophere.book.service.usrs;
 
 import com.shophere.book.api.dto.users.UserRegisterDto;
+import com.shophere.book.api.dto.users.UserUpdateDto;
 import com.shophere.book.config.auth.JwtTokenProvider;
 import com.shophere.book.domain.user.UserRepository;
 import com.shophere.book.domain.user.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,5 +38,15 @@ public class UsersService {
             throw new RuntimeException();
         }
         return jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRoles());
+    }
+
+    public Long userUpdate(UserUpdateDto updateDto, Long id) {
+        Users findUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
+
+        // 패스워드 암호화
+        String securityPassword = passwordEncoder.encode(updateDto.getPassword());
+        updateDto.changeSecurityPassword(securityPassword);
+
+        return id;
     }
 }

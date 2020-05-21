@@ -1,5 +1,6 @@
 package com.shophere.book.domain.user;
 
+import com.shophere.book.api.dto.users.UserUpdateDto;
 import com.shophere.book.domain.BaseTimeEntity;
 import com.shophere.book.domain.book.Books;
 import lombok.*;
@@ -80,9 +81,8 @@ public class Users extends BaseTimeEntity implements UserDetails {
         return false;
     }
 
-    public Users update(String name, String picture) {
-        this.name = name;
-        this.picture = picture;
+    public Users update(UserUpdateDto updateDto) {
+        this.password = updateDto.getPassword();
 
         return this;
     }
