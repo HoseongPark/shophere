@@ -24,8 +24,9 @@ public class UsersApiController {
 
     @ApiOperation(value = "로그인")
     @GetMapping("/users/signin")
-    public String userLogin(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public String userSignIn(@RequestParam("email") String email, @RequestParam("password") String password) {
         String token = usersService.userLogin(email, password);
         return token;
     }
+
 }
