@@ -22,9 +22,6 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-//    private String secretKey = "hoseongFirstJwtToken";
-//    private Long tokenValidTime = 30 * 60 * 1000L; // 토큰 유지 시간.
-
     @Value("${app.auth.secretKey}")
     private String secretKey;
 

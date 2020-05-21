@@ -47,6 +47,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
     private List<String> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "users")
+    @Builder.Default
     private List<Books> books = new ArrayList<>();
 
     @Override
@@ -81,10 +82,8 @@ public class Users extends BaseTimeEntity implements UserDetails {
         return false;
     }
 
-    public Users update(UserUpdateDto updateDto) {
+    public void update(UserUpdateDto updateDto) {
         this.password = updateDto.getPassword();
-
-        return this;
     }
 
 //    public String getRoleKey() {
