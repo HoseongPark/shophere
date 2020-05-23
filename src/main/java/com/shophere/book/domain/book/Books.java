@@ -34,7 +34,7 @@ public class Books extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private BookStatus bookStatus;
 
-    @OneToMany(mappedBy = "books", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "books", cascade = CascadeType.ALL)
     private List<BookShop> bookShops = new ArrayList<>();
 
     // -- 연관관계 처리 -- //

@@ -49,6 +49,7 @@ public class BooksService {
     /**
     *  예약 취소하기 (삭제하기)
     * */
+    @Transactional
     public Long booksDelete(Long bookId) {
 
         Books findBook = booksRepository.findById(bookId).orElseThrow(() -> new IllegalArgumentException("예약이 없어요..."));
