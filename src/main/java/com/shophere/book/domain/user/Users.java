@@ -1,6 +1,8 @@
 package com.shophere.book.domain.user;
 
 import com.shophere.book.api.dto.users.UserUpdateDto;
+
+
 import com.shophere.book.domain.BaseTimeEntity;
 import com.shophere.book.domain.book.Books;
 import lombok.*;
@@ -9,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
