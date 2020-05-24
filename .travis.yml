@@ -25,7 +25,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     on:
       branch: deploy
-    bucket: shophere-webservice
+    bucket: shophere-webservice-build
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
