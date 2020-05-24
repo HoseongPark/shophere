@@ -37,7 +37,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     bucket: shophere-webservice-build
     key: shophere.zip
-    build_type: zip
+    bundle_type: zip
     application: shophere-webservice # AWS웹 콘솔에서 CodeDeploy 등록한 Name
     deployment_group: shophere-webservice-group
     region: ap-northeast-2
