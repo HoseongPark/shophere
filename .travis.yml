@@ -15,7 +15,7 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r shophere*
+  - zip -r shophere *
   - mkdir -p deploy
   - mv shophere.zip deploy/shophere.zip
 
