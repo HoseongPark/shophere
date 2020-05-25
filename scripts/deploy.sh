@@ -18,7 +18,7 @@ echo "[$CURRENT_TIME] >> 현재 구동 중인 pid: $CURRENT_PID" | tee -a $LOGDI
 if [ -z "$CURRENT_PID" ]; then
         echo "[$CURRENT_TIME] >> 현재 구동 중인 애플리케이션이 없으므로 종료하지 않습니다." | tee -a $LOGDIR
 else
-        echo ">> kill -15 $CURRENT_PID" | tee -a $LOGDIR
+        echo "[$CURRENT_TIME] >> kill -15 $CURRENT_PID" | tee -a $LOGDIR
         kill -15 $CURRENT_PID
         sleep 5
 fi
