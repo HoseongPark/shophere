@@ -5,11 +5,12 @@ LOGDIR=/home/ec2-user/app/deploy/Log/$TODAY.log
 REPOSITORY=/home/ec2-user/app/deploy
 PROJECT_NAME=shophere
 
+echo "------------------------ [ Start ] ---------------------------" | tee -a $LOGDIR
 echo ">> Build 파일 복사" | tee -a $LOGDIR
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo ">> 현재 구동중인 어플리케이션 PID 확인" | tee -a $LOGDIR
-CURRENT_PID=`pgrep -f ${PROJECT_NAME}*.jar`
+CURRENT_PID=${pgrep -f ${PROJECT_NAME}*.jar}
 
 echo ">> 현재 구동 중인 pid: $CURRENT_PID" | tee -a $LOGDIR
 
@@ -36,3 +37,4 @@ nohup java -jar -Dspring.config.location=classpath:/application.properties,\
 $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
 
 echo "------------------------ [ Finish ] ---------------------------" | tee -a $LOGDIR
+echo ""
