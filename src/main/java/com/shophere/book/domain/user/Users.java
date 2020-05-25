@@ -39,10 +39,6 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
     private String picture;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(nullable = false)
-//    private List<Role> role = new ArrayList<>();
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
@@ -85,6 +81,10 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
     public void update(UserUpdateDto updateDto) {
         this.password = updateDto.getPassword();
+    }
+
+    public void updateOwner() {
+        this.roles.add("ROLE_OWNER");
     }
 
 //    public String getRoleKey() {

@@ -1,6 +1,5 @@
 package com.shophere.book.config.auth.dto;
 
-import com.shophere.book.domain.user.Role;
 import com.shophere.book.domain.user.Users;
 import lombok.Builder;
 import lombok.Getter;

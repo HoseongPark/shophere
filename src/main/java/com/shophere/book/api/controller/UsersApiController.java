@@ -55,4 +55,12 @@ public class UsersApiController {
         UserResponseDto findUser = usersService.findByEmail(email);
         return findUser;
     }
+
+    @ApiOperation(value = "Owner로 권한 상승")
+    @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
+    @PutMapping("/users/authority/{id}")
+    public Long updateOwner(@PathVariable("id") Long id) {
+        Long userId = usersService.updateOwner(id);
+        return userId;
+    }
 }

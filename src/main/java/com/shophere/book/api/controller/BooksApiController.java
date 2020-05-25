@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "BookApiController V1")
+@Api(value = "BooksApiController V1")
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @RestController
-public class BookApiController {
+public class BooksApiController {
 
     private final BooksService booksService;
 

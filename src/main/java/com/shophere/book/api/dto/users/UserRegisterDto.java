@@ -1,11 +1,9 @@
 package com.shophere.book.api.dto.users;
 
-import com.shophere.book.domain.user.Role;
 import com.shophere.book.domain.user.Users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Collections;
 

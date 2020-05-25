@@ -32,6 +32,8 @@ public class Shops extends BaseTimeEntity {
     @OneToMany(mappedBy = "shops")
     List<BookShop> booksShops = new ArrayList<>();
 
+
+
     @Builder
     public Shops(String title, String overView, String content, String author) {
         this.title = title;
