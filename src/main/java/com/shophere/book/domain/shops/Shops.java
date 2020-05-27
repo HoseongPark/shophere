@@ -29,22 +29,24 @@ public class Shops extends BaseTimeEntity {
 
     private String author;
 
+    private int price;
+
     @OneToMany(mappedBy = "shops")
     List<BookShop> booksShops = new ArrayList<>();
 
-
-
     @Builder
-    public Shops(String title, String overView, String content, String author) {
+    public Shops(String title, String overView, String content, String author, int price) {
         this.title = title;
         this.overView = overView;
         this.content = content;
         this.author = author;
+        this.price = price;
     }
 
-    public void update(String title, String content, String overView) {
+    public void update(String title, String content, String overView, int price) {
         this.title = title;
         this.content = content;
         this.overView = overView;
+        this.price = price;
     }
 }

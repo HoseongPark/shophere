@@ -27,7 +27,10 @@ public class ShopsService {
     @Transactional
     public Long update(Long id, ShopsUpdateRequestDto requestDto) {
         Shops shops = shopsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 가맹점이 없습니다."));
-        shops.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getOverView());
+        shops.update(requestDto.getTitle(),
+                requestDto.getContent(),
+                requestDto.getOverView(),
+                requestDto.getPrice());
 
         return shops.getId();
     }
