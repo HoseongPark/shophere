@@ -41,7 +41,7 @@ public class UsersService {
         if (!passwordEncoder.matches(password, findUser.getPassword())) {
             throw new RuntimeException();
         }
-        return jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRoles());
+        return jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRole());
     }
 
     @Transactional

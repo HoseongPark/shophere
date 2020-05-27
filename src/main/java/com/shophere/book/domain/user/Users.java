@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.shophere.book.domain.user.Role.*;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -39,9 +41,8 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
     private String picture;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "users")
     @Builder.Default
@@ -49,9 +50,12 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        Collection<SimpleGrantedAuthority> collectonSimple = new ArrayList<>();
+        String key = this.role.getKey();
+        SimpleGrantedAuthority simple = new SimpleGrantedAuthority(key);
+
+        collectonSimple.add(simple);
+        return collectonSimple;
     }
 
     @Override
@@ -84,7 +88,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
     }
 
     public void updateOwner() {
-        this.roles.add("ROLE_OWNER");
+        this.role = OWNER;
     }
 
 //    public String getRoleKey() {

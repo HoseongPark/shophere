@@ -1,5 +1,6 @@
 package com.shophere.book.config.auth;
 
+import com.shophere.book.domain.user.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -36,9 +37,9 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String createToken(String userPk, List<String> roles) {
+    public String createToken(String userPk, Role role) {
         Claims claims = Jwts.claims().setSubject(userPk);
-        claims.put("roles", roles);
+        claims.put("role", role.getKey());
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims)

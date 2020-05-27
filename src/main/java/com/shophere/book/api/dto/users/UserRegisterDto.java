@@ -1,11 +1,14 @@
 package com.shophere.book.api.dto.users;
 
+import com.shophere.book.domain.user.Role;
 import com.shophere.book.domain.user.Users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Collections;
+
+import static com.shophere.book.domain.user.Role.USER;
 
 @Getter
 @NoArgsConstructor
@@ -31,7 +34,7 @@ public class UserRegisterDto {
                 .name(name)
                 .email(email)
                 .password(password)
-                .roles(Collections.singletonList("ROLE_USER"))
+                .role(USER)
                 .build();
         return user;
     }
