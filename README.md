@@ -1,0 +1,32 @@
+# ShopHere Webservice
+
+## Over View
+상점 예약 시스템 BackEnd API Server 구축
+
+## 오타 & 오류 제보
+
+상단의 [Issue 탭](https://github.com/Lion_Park/shophere/issues)에서 검색 혹은 추가 이슈등록 해주세요!!
+
+## 개발 환경 점검
+* **Java 1.8**
+* **Gradle 4.X**
+* **Spring Boot 2.1.X**
+* **H2 DataBase 4.199**
+
+**Gradle 5.X** , **Spring Boot 2.2.x** Version이 업데이트 되었는데 두개의 환경에서는 정상 작동이 되지 않습니다.   
+많은 변경점이 있기때문에 개발시 환경을 맞춰주세요.
+
+H2 DataBase의 경우 4.200이 최신인데 버그가 많습니다. 4.199 Version으로 환경을 셋팅 했습니다.
+
+## Local BackEnd Execution
+
+Linux & Mac
+* 1. Git Clone
+* 2. run.sh 실행
+
+Windows
+* 1. 작성 예정
+   
+**정상적으로 실행 됬을경우**
+![serverOpen](https://user-images.githubusercontent.com/39320966/83196886-974ff000-a177-11ea-8c6e-b011eddedd39.png)   
+![serverPortCheck](https://user-images.githubusercontent.com/39320966/83197039-d0886000-a177-11ea-8c43-855c42f07b07.png)
