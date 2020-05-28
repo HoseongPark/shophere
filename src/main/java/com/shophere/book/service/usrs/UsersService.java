@@ -2,6 +2,7 @@ package com.shophere.book.service.usrs;
 
 import com.shophere.book.api.dto.users.UserRegisterDto;
 import com.shophere.book.api.dto.users.UserResponseDto;
+import com.shophere.book.api.dto.users.UserSigninResponseDto;
 import com.shophere.book.api.dto.users.UserUpdateDto;
 import com.shophere.book.config.auth.JwtTokenProvider;
 import com.shophere.book.domain.user.UserRepository;
@@ -10,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -34,14 +33,18 @@ public class UsersService {
         return savedUser.getId();
     }
 
-    public String signIn(String email, String password) {
+    public UserSigninResponseDto signIn(String email, String password) {
         Users findUser = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
 
         // 패스워드 확인
         if (!passwordEncoder.matches(password, findUser.getPassword())) {
             throw new RuntimeException();
         }
-        return jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRole());
+        String token = jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRole());
+
+        UserSigninResponseDto siginUser = UserSigninResponseDto.builder().token(token).build();
+
+        return siginUser;
     }
 
     @Transactional

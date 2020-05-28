@@ -1,5 +1,6 @@
 package com.shophere.book.api.controller;
 
+import com.shophere.book.api.dto.shops.ShopSearchCondition;
 import com.shophere.book.service.shops.ShopsService;
 import com.shophere.book.api.dto.shops.ShopsResponseDto;
 import com.shophere.book.api.dto.shops.ShopsSaveRequestDto;
@@ -7,6 +8,8 @@ import com.shophere.book.api.dto.shops.ShopsUpdateRequestDto;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(value = "ShopsController V1")
 @RequiredArgsConstructor
@@ -49,5 +52,14 @@ public class ShopsApiController {
     public Long delete(@PathVariable Long id) {
         shopsService.delete(id);
         return id;
+    }
+
+    // 상점 조회
+    @ApiOperation(value = "가맹점 조회")
+    @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
+    @GetMapping("/shops")
+    public List<ShopsResponseDto> findByCondition (
+            ShopSearchCondition shopSearchCondition) {
+        return shopsService.findByCondition(shopSearchCondition);
     }
 }

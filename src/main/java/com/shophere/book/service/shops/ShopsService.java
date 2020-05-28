@@ -1,11 +1,8 @@
 package com.shophere.book.service.shops;
 
+import com.shophere.book.api.dto.shops.*;
 import com.shophere.book.domain.shops.Shops;
 import com.shophere.book.domain.shops.ShopsRepository;
-import com.shophere.book.api.dto.shops.ShopsListResponseDto;
-import com.shophere.book.api.dto.shops.ShopsResponseDto;
-import com.shophere.book.api.dto.shops.ShopsSaveRequestDto;
-import com.shophere.book.api.dto.shops.ShopsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +24,11 @@ public class ShopsService {
     @Transactional
     public Long update(Long id, ShopsUpdateRequestDto requestDto) {
         Shops shops = shopsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 가맹점이 없습니다."));
-        shops.update(requestDto.getTitle(), requestDto.getContent(), requestDto.getOverView());
+        shops.update(requestDto.getTitle(),
+                requestDto.getContent(),
+                requestDto.getOverView(),
+                requestDto.getPrice(),
+                requestDto.getCategory());
 
         return shops.getId();
     }
@@ -47,5 +48,11 @@ public class ShopsService {
     public void delete(Long id) {
         Shops shops = shopsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 가맹점이 없습니다."));
         shopsRepository.delete(shops);
+    }
+
+    public List<ShopsResponseDto> findByCondition(ShopSearchCondition shopSearchCondition) {
+        List<ShopsResponseDto> search = shopsRepository.search(shopSearchCondition);
+
+        return search;
     }
 }
