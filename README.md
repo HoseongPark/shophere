@@ -13,7 +13,7 @@
 * **Spring Boot 2.1.X**
 * **H2 DataBase 4.199**
 
-**Gradle 5.X** , **Spring Boot 2.2.x** Version이 업데이트 되었는데 두개의 환경에서는 정상 작동이 되지 않습니다.
+**Gradle 5.X** , **Spring Boot 2.2.x** Version이 업데이트 되었는데 두개의 환경에서는 정상 작동이 되지 않습니다.  
 많은 변경점이 있기때문에 개발시 환경을 맞춰주세요.
 
 H2 DataBase의 경우 4.200이 최신인데 버그가 많습니다. 4.199 Version으로 환경을 셋팅 했습니다.
