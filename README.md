@@ -19,8 +19,9 @@
 H2 DataBase의 경우 4.200이 최신인데 버그가 많습니다. 4.199 Version으로 환경을 셋팅 했습니다.
 
 ## Local BackEnd Execution
+Java 1.8이상 설치가 되어있어야합니다.   
 
-Linux & Mac
+Linux & Mac   
 * 1. Git Clone
 * 2. run.sh 실행
 
