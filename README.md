@@ -44,3 +44,6 @@ Windows
 * Password :
 
 ![h2console](https://user-images.githubusercontent.com/39320966/83198824-fcf1ab80-a17a-11ea-8398-d53bff3caacd.png)
+
+## ShopHere Project Portfolio
+- https://www.notion.so/hoseongpark/ShopHere-Backend-Project-bbb6945551fb4d58a1d60ff4321ffcc3
