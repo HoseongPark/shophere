@@ -1,6 +1,7 @@
 package com.shophere.book;
 
 import com.shophere.book.api.dto.users.UserRegisterDto;
+import com.shophere.book.api.dto.users.UserResponseDto;
 import com.shophere.book.domain.user.Role;
 import com.shophere.book.domain.user.UserRepository;
 import com.shophere.book.domain.user.Users;
@@ -31,8 +32,14 @@ public class Application {
                 .password("master1234")
                 .build();
 
-        usersService.save(registerDto);
-        usersService.updateOwner(registerDto.getEmail());
+        UserResponseDto masterUser = usersService.findByEmail(registerDto.getEmail());
+        if (masterUser == null) {
+            usersService.save(registerDto);
+            usersService.updateOwner(registerDto.getEmail());
+        } else {
+            return;
+        }
+
     }
 
 }
