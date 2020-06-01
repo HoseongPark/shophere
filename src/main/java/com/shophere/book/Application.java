@@ -23,23 +23,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    // 개발용 임시 Master 계정
-    @PostConstruct
-    public void masterUser() {
-        UserRegisterDto registerDto = UserRegisterDto.builder()
-                .name("master")
-                .email("master@master.com")
-                .password("master1234")
-                .build();
-
-        UserResponseDto masterUser = usersService.findByEmail(registerDto.getEmail());
-        if (masterUser == null) {
-            usersService.save(registerDto);
-            usersService.updateOwner(registerDto.getEmail());
-        } else {
-            return;
-        }
-
-    }
-
 }
