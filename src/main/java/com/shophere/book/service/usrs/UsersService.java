@@ -72,8 +72,8 @@ public class UsersService {
     }
 
     @Transactional
-    public Long updateOwner(Long id) {
-        Users findUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
+    public Long updateOwner(String email) {
+        Users findUser = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
         findUser.updateOwner();
 
         return findUser.getId();

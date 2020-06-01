@@ -24,7 +24,6 @@ public class UsersApiController {
     }
 
     @ApiOperation(value = "로그인")
-    @ApiImplicitParam(name = "signinDto", required = true, value = "로그인 정보")
     @PostMapping("/users/signin")
     public UserSigninResponseDto signin(@RequestBody UserSigninDto signinDto) {
         UserSigninResponseDto token = usersService.signIn(signinDto);
@@ -57,9 +56,9 @@ public class UsersApiController {
 
     @ApiOperation(value = "Owner로 권한 상승")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @PutMapping("/users/authority/{id}")
-    public Long updateOwner(@PathVariable("id") Long id) {
-        Long userId = usersService.updateOwner(id);
+    @PutMapping("/users/authority/{email}")
+    public Long updateOwner(@PathVariable("email") String email) {
+        Long userId = usersService.updateOwner(email);
         return userId;
     }
 }

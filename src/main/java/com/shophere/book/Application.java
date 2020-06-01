@@ -32,7 +32,7 @@ public class Application {
                 .build();
 
         usersService.save(registerDto);
-        usersService.updateOwner(1L);
+        usersService.updateOwner(registerDto.getEmail());
     }
 
 }
