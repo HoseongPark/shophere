@@ -4,6 +4,8 @@ import com.shophere.book.api.dto.shops.*;
 import com.shophere.book.domain.shops.Shops;
 import com.shophere.book.domain.shops.ShopsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,9 +52,7 @@ public class ShopsService {
         shopsRepository.delete(shops);
     }
 
-    public List<ShopsResponseDto> findByCondition(ShopSearchCondition shopSearchCondition) {
-        List<ShopsResponseDto> search = shopsRepository.search(shopSearchCondition);
-
-        return search;
+    public Page<ShopsResponseDto> findByCondition(ShopSearchCondition shopSearchCondition, Pageable pageable) {
+        return shopsRepository.search(shopSearchCondition, pageable);
     }
 }

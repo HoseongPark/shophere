@@ -1,9 +1,6 @@
 package com.shophere.book.api.controller;
 
-import com.shophere.book.api.dto.users.UserRegisterDto;
-import com.shophere.book.api.dto.users.UserResponseDto;
-import com.shophere.book.api.dto.users.UserSigninResponseDto;
-import com.shophere.book.api.dto.users.UserUpdateDto;
+import com.shophere.book.api.dto.users.*;
 import com.shophere.book.service.usrs.UsersService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,9 +24,10 @@ public class UsersApiController {
     }
 
     @ApiOperation(value = "로그인")
-    @GetMapping("/users/signin")
-    public UserSigninResponseDto signin(@RequestParam("email") String email, @RequestParam("password") String password) {
-        UserSigninResponseDto token = usersService.signIn(email, password);
+    @ApiImplicitParam(name = "signinDto", required = true, value = "로그인 정보")
+    @PostMapping("/users/signin")
+    public UserSigninResponseDto signin(@RequestBody UserSigninDto signinDto) {
+        UserSigninResponseDto token = usersService.signIn(signinDto);
         return token;
     }
 

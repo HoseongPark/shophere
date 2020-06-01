@@ -1,11 +1,15 @@
 package com.shophere.book.domain.shops;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shophere.book.api.dto.shops.ShopSearchCondition;
 import com.shophere.book.api.dto.shops.ShopsResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -21,8 +25,8 @@ public class ShopsRepositoryImpl implements ShopsRepositoryCustom{
     }
 
     @Override
-    public List<ShopsResponseDto> search(ShopSearchCondition condition) {
-        return queryFactory
+    public Page<ShopsResponseDto> search(ShopSearchCondition condition, Pageable pageable) {
+        QueryResults<ShopsResponseDto> result = queryFactory
                 .select(Projections.fields(ShopsResponseDto.class,
                         shops.id,
                         shops.title,
@@ -37,7 +41,12 @@ public class ShopsRepositoryImpl implements ShopsRepositoryCustom{
                         categoryEq(condition.getCategory()),
                         priceGoe(condition.getPriceGoe()),
                         priceLoe(condition.getPriceLoe()))
-                .fetch();
+                .fetchResults();
+
+        List<ShopsResponseDto> data = result.getResults();
+        long total = result.getTotal();
+
+        return new PageImpl<>(data, pageable, total);
     }
 
     private BooleanExpression priceLoe(Integer priceLoe) {

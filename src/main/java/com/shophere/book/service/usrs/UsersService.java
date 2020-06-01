@@ -1,9 +1,6 @@
 package com.shophere.book.service.usrs;
 
-import com.shophere.book.api.dto.users.UserRegisterDto;
-import com.shophere.book.api.dto.users.UserResponseDto;
-import com.shophere.book.api.dto.users.UserSigninResponseDto;
-import com.shophere.book.api.dto.users.UserUpdateDto;
+import com.shophere.book.api.dto.users.*;
 import com.shophere.book.config.auth.JwtTokenProvider;
 import com.shophere.book.domain.user.UserRepository;
 import com.shophere.book.domain.user.Users;
@@ -33,11 +30,12 @@ public class UsersService {
         return savedUser.getId();
     }
 
-    public UserSigninResponseDto signIn(String email, String password) {
+    public UserSigninResponseDto signIn(UserSigninDto signinDto) {
+        String email = signinDto.getEmail();
         Users findUser = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
 
         // 패스워드 확인
-        if (!passwordEncoder.matches(password, findUser.getPassword())) {
+        if (!passwordEncoder.matches(signinDto.getEmail(), findUser.getPassword())) {
             throw new RuntimeException();
         }
         String token = jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRole());
