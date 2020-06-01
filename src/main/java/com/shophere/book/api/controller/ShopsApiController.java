@@ -7,6 +7,8 @@ import com.shophere.book.api.dto.shops.ShopsSaveRequestDto;
 import com.shophere.book.api.dto.shops.ShopsUpdateRequestDto;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,9 +59,14 @@ public class ShopsApiController {
     // 상점 조회
     @ApiOperation(value = "가맹점 조회")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "category", required = false, dataType = "String", value = "카테고리"),
+            @ApiImplicitParam(name = "title", required = false, dataType = "String", value = "제목"),
+            @ApiImplicitParam(name = "priceGoe", required = false, dataType = "String", value = "검색 가격보다 큰것"),
+            @ApiImplicitParam(name = "priceLoe", required = false, dataType = "String", value = "검색 가격보다 작은것")
+    })
     @GetMapping("/shops")
-    public List<ShopsResponseDto> findByCondition (
-            ShopSearchCondition shopSearchCondition) {
-        return shopsService.findByCondition(shopSearchCondition);
+    public Page<ShopsResponseDto> findByCondition (ShopSearchCondition shopSearchCondition, Pageable pageable) {
+        return shopsService.findByCondition(shopSearchCondition, pageable);
     }
 }

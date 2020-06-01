@@ -2,6 +2,8 @@ package com.shophere.book.domain.shops;
 
 import com.shophere.book.api.dto.shops.ShopSearchCondition;
 import com.shophere.book.api.dto.shops.ShopsResponseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,5 +15,5 @@ public interface ShopsRepository extends JpaRepository<Shops, Long>, ShopsReposi
     List<Shops> findAllDesc();
 
     @Override
-    List<ShopsResponseDto> search(ShopSearchCondition condition);
+    Page<ShopsResponseDto> search(ShopSearchCondition condition, Pageable pageable);
 }
