@@ -1,9 +1,6 @@
 package com.shophere.book.api.controller;
 
-import com.shophere.book.api.dto.users.UserRegisterDto;
-import com.shophere.book.api.dto.users.UserResponseDto;
-import com.shophere.book.api.dto.users.UserSigninResponseDto;
-import com.shophere.book.api.dto.users.UserUpdateDto;
+import com.shophere.book.api.dto.users.*;
 import com.shophere.book.service.usrs.UsersService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,9 +24,9 @@ public class UsersApiController {
     }
 
     @ApiOperation(value = "로그인")
-    @GetMapping("/users/signin")
-    public UserSigninResponseDto signin(@RequestParam("email") String email, @RequestParam("password") String password) {
-        UserSigninResponseDto token = usersService.signIn(email, password);
+    @PostMapping("/users/signin")
+    public UserSigninResponseDto signin(@RequestBody UserSigninDto signinDto) {
+        UserSigninResponseDto token = usersService.signIn(signinDto);
         return token;
     }
 
@@ -59,9 +56,9 @@ public class UsersApiController {
 
     @ApiOperation(value = "Owner로 권한 상승")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @PutMapping("/users/authority/{id}")
-    public Long updateOwner(@PathVariable("id") Long id) {
-        Long userId = usersService.updateOwner(id);
+    @PutMapping("/users/authority/{email}")
+    public Long updateOwner(@PathVariable("email") String email) {
+        Long userId = usersService.updateOwner(email);
         return userId;
     }
 }
