@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    // CORS 허용 적용
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -58,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
+    // Swagger 허용
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
