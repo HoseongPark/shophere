@@ -48,3 +48,11 @@ Windows
 ## ShopHere Project Portfolio
 * Project 관리 및 Task 
 - https://www.notion.so/hoseongpark/ShopHere-Backend-Project-bbb6945551fb4d58a1d60ff4321ffcc3
+
+## Contat Us
+
+김민수
+* FrontEnd : https://github.com/Minsoo-web 
+
+박호성
+* BackEnd : https://github.com/hoseongpark
