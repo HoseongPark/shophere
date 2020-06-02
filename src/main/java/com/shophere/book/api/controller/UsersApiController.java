@@ -17,7 +17,7 @@ public class UsersApiController {
     private final UsersService usersService;
 
     @ApiOperation(value = "회원가입")
-    @PostMapping("/users/")
+    @PostMapping("/users")
     public Long register(@RequestBody UserRegisterDto registerDto) {
         Long savedId = usersService.save(registerDto);
         return savedId;
@@ -32,7 +32,7 @@ public class UsersApiController {
 
     @ApiOperation(value = "회원 수정")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @PutMapping("/users/")
+    @PutMapping("/users")
     public Long update(@RequestBody UserUpdateDto updateDto, @RequestParam("id") Long id) {
         Long updateUserId = usersService.update(updateDto, id);
         return updateUserId;
@@ -40,7 +40,7 @@ public class UsersApiController {
 
     @ApiOperation(value = "회원 삭제")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @DeleteMapping("/users/")
+    @DeleteMapping("/users")
     public Long delete(@RequestParam("id") Long id) {
         Long deleteUserId = usersService.delete(id);
         return deleteUserId;
@@ -48,7 +48,7 @@ public class UsersApiController {
 
     @ApiOperation(value = "회원 조회")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @GetMapping("/users/")
+    @GetMapping("/users")
     public UserResponseDto findUser(@RequestParam("Email") String email) {
         UserResponseDto findUser = usersService.findByEmail(email);
         return findUser;

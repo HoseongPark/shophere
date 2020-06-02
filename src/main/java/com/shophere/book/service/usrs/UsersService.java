@@ -35,8 +35,8 @@ public class UsersService {
         Users findUser = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
 
         // 패스워드 확인
-        if (!passwordEncoder.matches(signinDto.getEmail(), findUser.getPassword())) {
-            throw new RuntimeException();
+        if (!passwordEncoder.matches(signinDto.getPassword(), findUser.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 틀립니다.");
         }
         String token = jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRole());
 
