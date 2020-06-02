@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().disable()
-                .cors()
+                .cors().configurationSource(corsConfigurationSource())
 //                .headers().frameOptions().disable()
                 .and()
                     .csrf().disable()
@@ -48,9 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://219.250.20.28:8080");
-        configuration.addAllowedOrigin("http://locahost:8080");
-        configuration.addAllowedOrigin("http://127.0.0.1:8080");
+        configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
