@@ -33,8 +33,8 @@ public class UsersApiController {
     @ApiOperation(value = "회원 수정")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
     @PutMapping("/users")
-    public Long update(@RequestBody UserUpdateDto updateDto, @RequestParam("id") Long id) {
-        Long updateUserId = usersService.update(updateDto, id);
+    public String update(@RequestBody UserUpdateDto updateDto, @RequestParam("email") String email) {
+        String updateUserId = usersService.update(updateDto, email);
         return updateUserId;
     }
 
