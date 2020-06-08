@@ -7,5 +7,5 @@ import lombok.Getter;
 @Builder
 public class UserSigninResponseDto {
 
-    private String token;
+    private String accessToken;
 }

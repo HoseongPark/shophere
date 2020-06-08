@@ -42,14 +42,14 @@ public class UsersService {
         }
         String token = jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRole());
 
-        UserSigninResponseDto siginUser = UserSigninResponseDto.builder().token(token).build();
+        UserSigninResponseDto siginUser = UserSigninResponseDto.builder().accessToken(token).build();
 
         return siginUser;
     }
 
     @Transactional
-    public Long update(UserUpdateDto updateDto, Long id) {
-        Users findUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
+    public String update(UserUpdateDto updateDto, String email) {
+        Users findUser = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
 
         // 패스워드 암호화
         String securityPassword = passwordEncoder.encode(updateDto.getPassword());
@@ -57,7 +57,7 @@ public class UsersService {
 
         findUser.update(updateDto);
 
-        return findUser.getId();
+        return "Success Update";
     }
 
     @Transactional
