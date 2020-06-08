@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -77,5 +79,10 @@ public class UsersService {
         findUser.updateOwner();
 
         return findUser.getId();
+    }
+
+    public Boolean emailCheck(String email) {
+        Optional<Users> byEmail = userRepository.findByEmail(email);
+        return byEmail.isPresent();
     }
 }
