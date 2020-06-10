@@ -33,8 +33,8 @@ public class UsersApiController {
     @ApiOperation(value = "회원 수정")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
     @PutMapping("/users")
-    public Long update(@RequestBody UserUpdateDto updateDto, @RequestParam("id") Long id) {
-        Long updateUserId = usersService.update(updateDto, id);
+    public String update(@RequestBody UserUpdateDto updateDto, @RequestParam("email") String email) {
+        String updateUserId = usersService.update(updateDto, email);
         return updateUserId;
     }
 
@@ -62,12 +62,13 @@ public class UsersApiController {
         return userId;
     }
 
-    @ApiOperation(value = "Email 중복체크 확인")
-    @ApiImplicitParam(name="email", required = true, dataType = "String", value = "Email")
+    @ApiOperation(value = "Email 중복 체크")
+    @ApiImplicitParam(name="email", required = true, dataType = "String", value = "이메일")
     @GetMapping("/users/authority")
-    public Boolean emailChech(@RequestParam("email") String email) {
-        UserResponseDto byEmail = usersService.findByEmail(email);
-        Boolean result = (byEmail != null) ? false : true;
+    public Boolean emailCheck(@RequestParam("email") String email) {
+        Boolean result = usersService.emailCheck(email);
+
         return result;
     }
+
 }

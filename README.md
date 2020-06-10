@@ -48,3 +48,7 @@ Windows
 ## ShopHere Project Portfolio
 * Project 관리 및 Task 
 - https://www.notion.so/hoseongpark/ShopHere-Backend-Project-bbb6945551fb4d58a1d60ff4321ffcc3
+
+## AWS Server IP
+ * BackEnd Server : 13.209.160.6
+ * Swagger URL : 13.209.160.6:8080/docs
