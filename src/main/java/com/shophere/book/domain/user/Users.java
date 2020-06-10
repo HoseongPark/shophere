@@ -1,6 +1,7 @@
 package com.shophere.book.domain.user;
 
-import com.shophere.book.api.dto.users.UserUpdateDto;
+import com.shophere.book.api.dto.users.UserInfoUpdateDto;
+import com.shophere.book.api.dto.users.UserPasswordUpdateDto;
 
 
 import com.shophere.book.domain.BaseTimeEntity;
@@ -15,7 +16,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.shophere.book.domain.user.Role.*;
 
@@ -87,8 +87,11 @@ public class Users extends BaseTimeEntity implements UserDetails {
         return false;
     }
 
-    public void update(UserUpdateDto updateDto) {
-        this.password = updateDto.getPassword();
+    public void passwordUpdate(String newPassword) {
+        this.password = newPassword;
+    }
+
+    public void infoUpdate(UserInfoUpdateDto updateDto) {
         this.name = updateDto.getName();
     }
 
