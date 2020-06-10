@@ -30,12 +30,20 @@ public class UsersApiController {
         return token;
     }
 
-    @ApiOperation(value = "회원 수정")
+    @ApiOperation(value = "회원 비밀번호 수정")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @PutMapping("/users")
-    public String update(@RequestBody UserUpdateDto updateDto, @RequestParam("email") String email) {
-        String updateUserId = usersService.update(updateDto, email);
-        return updateUserId;
+    @PutMapping("/users/password")
+    public String passwordUpdate(@RequestBody UserPasswordUpdateDto updateDto, @RequestParam("email") String email) {
+        String result = usersService.passwordUpdate(updateDto, email);
+        return result;
+    }
+
+    @ApiOperation(value = "회원 상세정보 수정")
+    @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
+    @PutMapping("/users/info")
+    public String userInfoUpdate(@RequestBody UserInfoUpdateDto updateDto, @RequestParam("email") String email) {
+        String result = usersService.infoUpdate(updateDto, email);
+        return result;
     }
 
     @ApiOperation(value = "회원 삭제")
