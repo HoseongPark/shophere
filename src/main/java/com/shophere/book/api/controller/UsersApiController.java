@@ -61,4 +61,13 @@ public class UsersApiController {
         Long userId = usersService.updateOwner(email);
         return userId;
     }
+
+    @ApiOperation(value = "Email 중복체크 확인")
+    @ApiImplicitParam(name="email", required = true, dataType = "String", value = "Email")
+    @GetMapping("/users/authority")
+    public Boolean emailChech(@RequestParam("email") String email) {
+        UserResponseDto byEmail = usersService.findByEmail(email);
+        Boolean result = (byEmail != null) ? false : true;
+        return result;
+    }
 }
