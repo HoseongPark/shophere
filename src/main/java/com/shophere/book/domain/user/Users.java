@@ -89,6 +89,7 @@ public class Users extends BaseTimeEntity implements UserDetails {
 
     public void update(UserUpdateDto updateDto) {
         this.password = updateDto.getPassword();
+        this.name = updateDto.getName();
     }
 
     public void updateOwner() {
