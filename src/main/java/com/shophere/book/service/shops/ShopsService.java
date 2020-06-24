@@ -3,6 +3,8 @@ package com.shophere.book.service.shops;
 import com.shophere.book.api.dto.shops.*;
 import com.shophere.book.domain.shops.Shops;
 import com.shophere.book.domain.shops.ShopsRepository;
+import com.shophere.book.domain.user.UserRepository;
+import com.shophere.book.domain.user.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +19,14 @@ import java.util.stream.Collectors;
 @Service
 public class ShopsService {
     private final ShopsRepository shopsRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public Long save(ShopsSaveRequestDto requestDto) {
-        return shopsRepository.save(requestDto.toEntity()).getId();
+    public String save(ShopsSaveRequestDto requestDto) {
+        Users user = userRepository.findByEmail(requestDto.getEmail()).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
+        Shops shop = Shops.createShop(requestDto, user);
+        shopsRepository.save(shop);
+        return "Success Create Shop";
     }
 
     @Transactional

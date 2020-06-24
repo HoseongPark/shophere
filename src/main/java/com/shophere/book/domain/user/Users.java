@@ -5,6 +5,7 @@ import com.shophere.book.api.dto.users.UserUpdateDto;
 
 import com.shophere.book.domain.BaseTimeEntity;
 import com.shophere.book.domain.book.Books;
+import com.shophere.book.domain.shops.Shops;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,6 +48,9 @@ public class Users extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "users")
     @Builder.Default
     private List<Books> books = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users")
+    private List<Shops> shops = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

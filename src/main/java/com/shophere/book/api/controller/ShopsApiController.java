@@ -25,7 +25,7 @@ public class ShopsApiController {
     @ApiOperation(value = "가맹점 등록")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
     @PostMapping("/shops")
-    public Long save(@RequestBody ShopsSaveRequestDto requestDto) {
+    public String save(@RequestBody ShopsSaveRequestDto requestDto) {
         return shopsService.save(requestDto);
     }
 
