@@ -48,17 +48,26 @@ public class UsersService {
     }
 
     @Transactional
-    public String update(UserUpdateDto updateDto, String email) {
+    public String passwordUpdate(UserPasswordUpdateDto updateDto, String email) {
         Users findUser = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
 
-        // 패스워드 암호화
-        String securityPassword = passwordEncoder.encode(updateDto.getPassword());
-        updateDto.changeSecurityPassword(securityPassword);
+        if (!passwordEncoder.matches(updateDto.getOldPassword(), findUser.getPassword())) {
+            return "Failed Old Password Not Match";
+        } else {
+            String newPassword = passwordEncoder.encode(updateDto.getNewPassword());
+            findUser.passwordUpdate(newPassword);
+            return "Success Password Update";
+        }
+    }
 
-        findUser.update(updateDto);
+    @Transactional
+    public String infoUpdate(UserInfoUpdateDto updateDto, String email) {
+        Users findUser = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
+        findUser.infoUpdate(updateDto);
 
         return "Success Update";
     }
+
 
     @Transactional
     public Long delete(Long id) {
