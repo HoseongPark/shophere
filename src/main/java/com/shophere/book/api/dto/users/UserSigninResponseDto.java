@@ -8,4 +8,5 @@ import lombok.Getter;
 public class UserSigninResponseDto {
 
     private String accessToken;
+    private Long userId;
 }
