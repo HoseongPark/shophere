@@ -41,8 +41,12 @@ public class UsersService {
             throw new IllegalArgumentException("비밀번호가 틀립니다.");
         }
         String token = jwtTokenProvider.createToken(findUser.getUsername(), findUser.getRole());
+        Long userId = findUser.getId();
 
-        UserSigninResponseDto siginUser = UserSigninResponseDto.builder().accessToken(token).build();
+        UserSigninResponseDto siginUser = UserSigninResponseDto.builder()
+                .accessToken(token)
+                .userId(userId)
+                .build();
 
         return siginUser;
     }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -60,5 +61,16 @@ public class ShopsService {
 
     public Page<ShopsResponseDto> findByCondition(ShopSearchCondition shopSearchCondition, Pageable pageable) {
         return shopsRepository.search(shopSearchCondition, pageable);
+    }
+
+    public List<ShopsResponseDto> findByUser(Long userId) {
+        Users user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("사용자가 없습니다."));
+        List<Shops> userShop = shopsRepository.findByUser(user);
+
+        List<ShopsResponseDto> result = userShop.stream()
+                .map(o -> new ShopsResponseDto(o))
+                .collect(Collectors.toList());
+
+        return result;
     }
 }
