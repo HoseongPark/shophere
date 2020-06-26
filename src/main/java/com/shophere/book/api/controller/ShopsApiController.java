@@ -21,43 +21,17 @@ public class ShopsApiController {
 
     private final ShopsService shopsService;
 
-    // 등록
-    @ApiOperation(value = "가맹점 등록")
-    @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @PostMapping("/shops")
-    public String save(@RequestBody ShopsSaveRequestDto requestDto) {
-        return shopsService.save(requestDto);
-    }
-
-    // 수정
-    @ApiOperation(value = "가맹점 수정")
-    @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @PutMapping("/shops/{id}")
-    public Long update(
-            @PathVariable("id") Long id,
-            @RequestBody ShopsUpdateRequestDto requestDto) {
-        return shopsService.update(id, requestDto);
-    }
-
     // 상세 조회
-    @ApiOperation(value = "가맹점 상세 조회")
+    @ApiOperation(value = "상점 상세 조회")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
     @GetMapping("/shops/{id}")
     public ShopsResponseDto findById (@PathVariable Long id) {
         return shopsService.findById(id);
     }
 
-    // 게시물 삭제
-    @ApiOperation(value = "가맹점 삭제")
-    @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
-    @DeleteMapping("/shops/{id}")
-    public Long delete(@PathVariable Long id) {
-        shopsService.delete(id);
-        return id;
-    }
 
     // 상점 조회
-    @ApiOperation(value = "가맹점 조회")
+    @ApiOperation(value = "상점 조회")
     @ApiImplicitParam(name="Authorization", required = true, dataType = "String", value = "인증 토큰", paramType = "header")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "category", required = false, dataType = "String", value = "카테고리"),
