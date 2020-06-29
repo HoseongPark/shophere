@@ -66,6 +66,4 @@ public class OwnersApiController {
         List<ShopsResponseDto> result = shopsService.findByUser(id);
         return result;
     }
-
-
 }

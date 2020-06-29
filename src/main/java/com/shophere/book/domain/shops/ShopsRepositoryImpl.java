@@ -6,7 +6,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shophere.book.api.dto.shops.ShopSearchCondition;
 import com.shophere.book.api.dto.shops.ShopsResponseDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -34,13 +33,17 @@ public class ShopsRepositoryImpl implements ShopsRepositoryCustom{
                         shops.content,
                         shops.author,
                         shops.price,
-                        shops.category
+                        shops.category,
+                        shops.createDate,
+                        shops.modifiedDate
                 ))
                 .from(shops)
                 .where(titleEq(condition.getTitle()),
                         categoryEq(condition.getCategory()),
                         priceGoe(condition.getPriceGoe()),
                         priceLoe(condition.getPriceLoe()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetchResults();
 
         List<ShopsResponseDto> data = result.getResults();
