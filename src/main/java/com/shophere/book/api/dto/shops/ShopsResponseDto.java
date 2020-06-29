@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor
 public class ShopsResponseDto {
@@ -17,6 +19,8 @@ public class ShopsResponseDto {
     private String author;
     private Integer price;
     private String category;
+    private LocalDateTime createDate;
+    private LocalDateTime modifiedDate;
 
     public ShopsResponseDto(Shops shops) {
         this.id = shops.getId();
@@ -26,5 +30,7 @@ public class ShopsResponseDto {
         this.author = shops.getAuthor();
         this.price = shops.getPrice();
         this.category = shops.getCategory();
+        this.createDate = shops.getCreateDate();
+        this.modifiedDate = shops.getModifiedDate();
     }
 }
